@@ -5,13 +5,12 @@ public class User {
     private String email;
 
     public User() {
-        this.login = "login";
-        this.email = "email@mail.ru";
+        this("login", "email@mail.ru");
     }
 
     public User(String login, String email) {
-        this.login = login;
-        this.email = email;
+        setLogin(login);
+        setEmail(email);
     }
 
     public String getLogin() {
@@ -19,7 +18,12 @@ public class User {
     }
 
     public void setLogin(String login) {
-        this.login = login;
+        if(!login.equals(this.email)){
+            this.login = login;
+        }
+        else{
+            throw new RuntimeException("Логин и почта не должны совпадать");
+        }
     }
 
     public String getEmail() {
@@ -27,7 +31,15 @@ public class User {
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        if(email.equals(this.login)){
+            throw new RuntimeException("Логин и почта не должны совпадать");
+        }
+        else if(email.contains("@") && email.contains(".")){
+            this.email = email;
+        }
+        else{
+            throw new RuntimeException("Некорректно введена почта. Электронная почта должна включать символы: '@' и '.'");
+        }
     }
 
 }

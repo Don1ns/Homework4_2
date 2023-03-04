@@ -27,13 +27,13 @@ class UserTest {
 
     @Test
     public void testCorrectEmail() {
-        User user = new User(CORRECT_LOGIN, WRONG_EMAIL);
-        assertTrue(user.getEmail().contains("@") && user.getEmail().contains("."));
+        User user = new User(CORRECT_LOGIN, CORRECT_EMAIL);
+        assertThrows(RuntimeException.class, () -> user.setEmail(WRONG_EMAIL));
     }
 
     @Test
     public void shouldReturnNonEqualsLoginAndEmail() {
-        User user = new User(CORRECT_LOGIN, CORRECT_LOGIN);
-        assertNotEquals(user.getLogin(), user.getEmail());
+        User user = new User(CORRECT_LOGIN, CORRECT_EMAIL);
+        assertThrows(RuntimeException.class, () -> user.setLogin(CORRECT_EMAIL));
     }
 }
